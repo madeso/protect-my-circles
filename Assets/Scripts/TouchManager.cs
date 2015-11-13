@@ -9,17 +9,20 @@ public class TouchManager : MonoBehaviour {
 		foreach(var t in Touches) {
 			if( t.fingerId != finger_id ) continue;
 
+			var suggested_pos = Camera.main.ScreenToWorldPoint(t.position);
+			suggested_pos.y = 0.125f;
+
 			if( t.phase == TouchPhase.Moved || t.phase == TouchPhase.Stationary ) {
 				dir = new Vector3(0,0,0);
 				Debug.Log ("Moving player");
-				return Camera.main.ScreenToWorldPoint(t.position);
+				return suggested_pos;
 			}
 			else if( t.phase == TouchPhase.Canceled || t.phase == TouchPhase.Ended ) {
 				keep = false;
 				var d = t.deltaPosition;
 				dir = new Vector3(d.x, 0, d.y);
 				Debug.Log("Dropping player");
-				return Camera.main.ScreenToWorldPoint(t.position);
+				return suggested_pos;
 			}
 		}
 

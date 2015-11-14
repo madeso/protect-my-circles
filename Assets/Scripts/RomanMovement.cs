@@ -2,8 +2,6 @@
 using System.Collections;
 
 public class RomanMovement : MonoBehaviour {
-	Vector3 target_ = new Vector3(0,Pickup.YPOS,0);
-
 	public float Speed = 1.0f;
 
 	Pickup pickup_;
@@ -17,6 +15,32 @@ public class RomanMovement : MonoBehaviour {
 	RomanSpawner spawner_;
 
 	AudioSource audio_;
+
+	// stolen from the unity documentation... yes I am a lazy person
+	GameObject FindClosest(string tag) {
+		GameObject[] gos;
+		gos = GameObject.FindGameObjectsWithTag(tag);
+		GameObject closest = null;
+		float distance = Mathf.Infinity;
+		Vector3 position = transform.position;
+		foreach (GameObject go in gos) {
+			Vector3 diff = go.transform.position - position;
+			float curDistance = diff.sqrMagnitude;
+			if (curDistance < distance) {
+				closest = go;
+				distance = curDistance;
+			}
+		}
+		return closest;
+	}
+
+	Vector3 TargetPosition {
+		get {
+			var player = FindClosest("Player");
+			if( player == null ) return new Vector3(0,0,0);
+			return player.transform.position;
+		}
+	}
 
 	void Start () {
 		this.spawner_ = GameObject.Find("RomanSpawner").GetComponent<RomanSpawner>();
@@ -39,7 +63,7 @@ public class RomanMovement : MonoBehaviour {
 	void Update () {
 		if( pickup_.CanMove ) {
 			var p = this.transform.position;
-			var d = (target_ - p);
+			var d = (this.TargetPosition - p);
 			d.y = 0;
 			var walk_dir = d.normalized;
 			p += walk_dir * Time.deltaTime * Speed;
@@ -60,9 +84,12 @@ public class RomanMovement : MonoBehaviour {
 	}
 
 	 public void OnTriggerEnter(Collider c) {
-		if( c.gameObject != null) {
-			var roman = c.gameObject.GetComponent<RomanMovement>();
-			var pickup = c.gameObject.GetComponent<Pickup>();
+		var g = c.gameObject;
+		if( g == null) return;
+
+		if( g.CompareTag("Enemy") ) {
+			var roman = g.GetComponent<RomanMovement>();
+			var pickup = g.GetComponent<Pickup>();
 
 			if( roman != null ) {
 				var collision = RomanCollision(this, this.pickup_, roman, pickup) ||
@@ -72,7 +99,10 @@ public class RomanMovement : MonoBehaviour {
 				}
 			}
 		}
-
+		else if( g.CompareTag("Player") ) {
+			Debug.Log ("Player died");
+			Destroy(g);
+		}
 	}
 
 	private Vector3 pos {

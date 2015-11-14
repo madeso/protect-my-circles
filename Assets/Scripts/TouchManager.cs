@@ -17,14 +17,12 @@ public class TouchManager : MonoBehaviour {
 
 			if( t.phase == TouchPhase.Moved || t.phase == TouchPhase.Stationary ) {
 				dir = new Vector3(0,0,0);
-				Debug.Log ("Moving player");
 				return SuggestedPosition(t);
 			}
 			else if( t.phase == TouchPhase.Canceled || t.phase == TouchPhase.Ended ) {
 				keep = false;
 				var d = t.deltaPosition;
 				dir = new Vector3(d.x, 0, d.y);
-				Debug.Log("Dropping player");
 				return SuggestedPosition(t);
 			}
 		}
@@ -37,10 +35,8 @@ public class TouchManager : MonoBehaviour {
 	public bool IsTouched(GameObject position, out int finger_id) {
 		foreach(var t in Touches) {
 			if( t.phase == TouchPhase.Began ) {
-				Debug.Log ("Touching somewhere");
 				Vector3 suggested_pos = SuggestedPosition(t);
 				if( (suggested_pos-position.transform.position).sqrMagnitude < TOUCH_MAG * TOUCH_MAG ) {
-					Debug.Log("Picked up");
 					finger_id = t.fingerId;
 					return true;
 				}

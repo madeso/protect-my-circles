@@ -12,9 +12,10 @@ GameObject:
   - 65: {fileID: 6582756}
   - 23: {fileID: 2339526}
   - 114: {fileID: 11466942}
+  - 114: {fileID: 11436358}
   m_Layer: 0
   m_Name: Roman
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26,7 +27,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 172444}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.21290445, y: .125, z: -3.23762345}
+  m_LocalPosition: {x: -1.76209116, y: .125, z: 2.5837431}
   m_LocalScale: {x: .5, y: .5, z: .5}
   m_Children: []
   m_Father: {fileID: 0}
@@ -74,6 +75,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &11436358
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 172444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b782954d35ec437fa0421328c28bf06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxThrowTimer: 1
+  CanBeThrown: 1
 --- !u!114 &11466942
 MonoBehaviour:
   m_ObjectHideFlags: 1

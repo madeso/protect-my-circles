@@ -3,6 +3,7 @@ using System.Collections;
 
 public class RomanMovement : MonoBehaviour {
 	public float Speed = 1.0f;
+	public float ExtraSpeed = 3.0f;
 
 	Pickup pickup_;
 
@@ -60,15 +61,23 @@ public class RomanMovement : MonoBehaviour {
 		}
 	}
 
+	private float extra_speed_ = 0;
+	public void RecieveSpeedBonus() {
+		this.extra_speed_ = 1;
+	}
+
 	void Update () {
 		if( pickup_.CanMove ) {
 			var p = this.transform.position;
 			var d = (this.TargetPosition - p);
 			d.y = 0;
 			var walk_dir = d.normalized;
-			p += walk_dir * Time.deltaTime * Speed;
-			p.y = Pickup.YPOS;
-			this.body_.velocity = walk_dir * Speed;
+			var s = this.Speed;
+			if( this.extra_speed_ > 0 ) {
+				s += this.extra_speed_ * this.ExtraSpeed;
+				this.extra_speed_ -= Time.deltaTime;
+			}
+			this.body_.velocity = walk_dir * s;
 			//this.transform.position = p;
 			this.transform.rotation = Quaternion.identity;
 		}

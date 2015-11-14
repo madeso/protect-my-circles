@@ -59,7 +59,7 @@ public class TouchManager : MonoBehaviour {
 		return suggested_pos;
 	}
 
-	private static IEnumerable<Touch> Touches {
+	public static IEnumerable<Touch> Touches {
 		get {
 			for(int touch_id=0; touch_id < Input.touchCount; ++touch_id) {
 				var t = Input.GetTouch(touch_id);

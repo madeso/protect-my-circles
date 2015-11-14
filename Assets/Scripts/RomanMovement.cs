@@ -100,6 +100,8 @@ public class RomanMovement : MonoBehaviour {
 			}
 		}
 		else if( g.CompareTag("Player") ) {
+			if( this.pickup_.IsBeingThrown ) return;
+			if( this.pickup_.IsPickedUp ) return;
 			Debug.Log ("Player died");
 			Destroy(g);
 		}

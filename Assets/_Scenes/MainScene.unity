@@ -478,8 +478,7 @@ Prefab:
       propertyPath: m_Name
       value: Roman (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 8263812, guid: e512a4e9fc43248f6ac683ac79d813cd, type: 2}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e512a4e9fc43248f6ac683ac79d813cd, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &1203445337
@@ -700,9 +699,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Roman: {fileID: 172444, guid: e512a4e9fc43248f6ac683ac79d813cd, type: 2}
-  Distance: 7
+  Distance: 6.5
+  ExtraRomanDistance: 2
   SpawnInterval: 1
-  MaxCount: 6
+  MaxCount: 12
 --- !u!4 &2103241591
 Transform:
   m_ObjectHideFlags: 0

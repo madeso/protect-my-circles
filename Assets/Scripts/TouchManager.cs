@@ -7,6 +7,12 @@ public class TouchManager : MonoBehaviour {
 
 	public float TouchDistance = 1.0f;
 
+	List<int> fingers_ = new List<int>();
+
+	public void Update() {
+		fingers_.Clear();
+	}
+
 
 	public Vector3 GetUpdatedPosition(ref int finger_id, ref bool keep, out Vector3 dir) {
 		foreach(var t in Touches) {
@@ -34,8 +40,11 @@ public class TouchManager : MonoBehaviour {
 			if( t.phase == TouchPhase.Began ) {
 				Vector3 suggested_pos = SuggestedPosition(t);
 				if( (suggested_pos-position.transform.position).sqrMagnitude < TouchDistance * TouchDistance ) {
-					finger_id = t.fingerId;
-					return true;
+					if( fingers_.Contains(t.fingerId) == false ) {
+						finger_id = t.fingerId;
+						fingers_.Add(finger_id);
+						return true;
+					}
 				}
 			}
 		}

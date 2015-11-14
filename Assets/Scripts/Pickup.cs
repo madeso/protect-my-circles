@@ -25,6 +25,12 @@ public class Pickup : MonoBehaviour {
 		}
 	}
 
+	public bool IsPickedUp {
+		get {
+			return this.is_picked_up_;
+		}
+	}
+
 	public void Throw(float timer, Vector3 dir) {
 		this.throwing_direction_ = dir;
 		this.throwing_timer_ = timer;

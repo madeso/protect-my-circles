@@ -5,7 +5,14 @@ public class RomanSpawner : MonoBehaviour {
 	public GameObject Roman;
 
 	public float Distance = 20.0f;
+	public float ExtraRomanDistance = 5.0f;
 	public float SpawnInterval = 1.0f;
+
+	public float TotalRomanDistance {
+		get {
+			return this.Distance + this.ExtraRomanDistance;
+		}
+	}
 
 	float spawn_timer_ = 0.0f;
 

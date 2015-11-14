@@ -31,7 +31,7 @@ public class RomanMovement : MonoBehaviour {
 
 	bool Visible {
 		get {
-			return this.transform.position.sqrMagnitude < this.spawner_.Distance * this.spawner_.Distance;
+			return this.transform.position.sqrMagnitude < this.spawner_.TotalRomanDistance * this.spawner_.TotalRomanDistance;
 			// return this.renderer_.isVisible;
 		}
 	}
@@ -49,11 +49,13 @@ public class RomanMovement : MonoBehaviour {
 			this.transform.rotation = Quaternion.identity;
 		}
 
-		bool vis = this.Visible;
-		if( vis ) has_become_visible_ = true;
-		if( has_become_visible_ && vis == false ) {
-			Destroy(this.gameObject);
-			audio_.PlayOneShot(this.SndDie);
+		if( this.pickup_.IsPickedUp == false ) {
+			bool vis = this.Visible;
+			if( vis ) has_become_visible_ = true;
+			if( has_become_visible_ && vis == false ) {
+				Destroy(this.gameObject);
+				audio_.PlayOneShot(this.SndDie);
+			}
 		}
 	}
 

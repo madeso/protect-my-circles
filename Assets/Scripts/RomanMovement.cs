@@ -111,7 +111,7 @@ public class RomanMovement : MonoBehaviour {
 		else if( g.CompareTag("Player") ) {
 			if( this.pickup_.IsBeingThrown ) return;
 			if( this.pickup_.IsPickedUp ) return;
-			Debug.Log ("Player died");
+			// Debug.Log ("Player died");
 			this.audio_.PlayOneShot(this.SndPlayerDeath);
 			Destroy(g);
 		}
@@ -131,7 +131,7 @@ public class RomanMovement : MonoBehaviour {
 		if( p1.IsBeingThrown == false && p2.IsBeingThrown == true ) {
 			var dir = (p2.ThrowingDirection.normalized + (m1.pos - m2.pos)).normalized * p2.ThrowingDirection.magnitude;
 			p1.Throw(p2.SuggestedThrowingTimer, dir);
-			Debug.Log("Collision");
+			// Debug.Log("Collision");
 			return true;
 		}
 

@@ -13,7 +13,7 @@ public class GameController : MonoBehaviour {
 	void Update () {
 		var players = GameObject.FindGameObjectsWithTag("Player").Length;
 		if( players <= 0 ) {
-			Debug.Log("No circles left");
+			// Debug.Log("No circles left");
 			Application.LoadLevel("Death");
 		}
 

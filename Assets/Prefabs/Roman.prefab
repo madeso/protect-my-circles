@@ -119,6 +119,7 @@ MonoBehaviour:
   ExtraSpeed: 3
   SndDie: {fileID: 8300000, guid: 3f6dc8db7a1e246a99d8995019ada051, type: 3}
   SndCollision: {fileID: 8300000, guid: 60af4f9a231d1414ba0171df75627383, type: 3}
+  SndPlayerDeath: {fileID: 8300000, guid: 57c1a98855f4c46a88fb579ac4a1f94d, type: 3}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

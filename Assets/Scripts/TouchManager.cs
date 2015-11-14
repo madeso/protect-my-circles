@@ -13,6 +13,7 @@ public class TouchManager : MonoBehaviour {
 		fingers_.Clear();
 	}
 
+	Dictionary<int, Vector2> sp = new Dictionary<int, Vector2>();
 
 	public Vector3 GetUpdatedPosition(ref int finger_id, ref bool keep, out Vector3 dir) {
 		foreach(var t in Touches) {
@@ -20,11 +21,14 @@ public class TouchManager : MonoBehaviour {
 
 			if( t.phase == TouchPhase.Moved || t.phase == TouchPhase.Stationary ) {
 				dir = new Vector3(0,0,0);
+				this.sp[t.fingerId] = t.deltaPosition;
+				// Debug.Log (t.deltaPosition);
 				return SuggestedPosition(t);
 			}
 			else if( t.phase == TouchPhase.Canceled || t.phase == TouchPhase.Ended ) {
 				keep = false;
-				var d = t.deltaPosition;
+				var d = this.sp[t.fingerId];
+				Debug.Log (d);
 				dir = new Vector3(d.x, 0, d.y);
 				return SuggestedPosition(t);
 			}

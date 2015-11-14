@@ -305,7 +305,7 @@ GameObject:
   - 4: {fileID: 816332902}
   - 82: {fileID: 816332903}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Audio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -333,7 +333,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -478,7 +478,8 @@ Prefab:
       propertyPath: m_Name
       value: Roman (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8263812, guid: e512a4e9fc43248f6ac683ac79d813cd, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: e512a4e9fc43248f6ac683ac79d813cd, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &1203445337

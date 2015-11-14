@@ -428,6 +428,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 11466942, guid: e512a4e9fc43248f6ac683ac79d813cd, type: 2}
+      propertyPath: SndPlayerDeath
+      value: 
+      objectReference: {fileID: 8300000, guid: 57c1a98855f4c46a88fb579ac4a1f94d, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e512a4e9fc43248f6ac683ac79d813cd, type: 2}
   m_IsPrefabParent: 0
@@ -643,10 +647,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Roman: {fileID: 172444, guid: e512a4e9fc43248f6ac683ac79d813cd, type: 2}
-  Distance: 6.5
-  ExtraRomanDistance: 2
-  SpawnInterval: 1
-  MaxCount: 12
+  Distance: 6.4000001
+  ExtraRomanDistance: 3
+  SpawnInterval: .150000006
+  MaxCount: 22
 --- !u!4 &2103241591
 Transform:
   m_ObjectHideFlags: 0

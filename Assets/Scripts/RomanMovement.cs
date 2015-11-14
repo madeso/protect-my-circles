@@ -112,6 +112,7 @@ public class RomanMovement : MonoBehaviour {
 			if( this.pickup_.IsBeingThrown ) return;
 			if( this.pickup_.IsPickedUp ) return;
 			Debug.Log ("Player died");
+			this.audio_.PlayOneShot(this.SndPlayerDeath);
 			Destroy(g);
 		}
 	}
@@ -124,6 +125,7 @@ public class RomanMovement : MonoBehaviour {
 
 	public AudioClip SndDie;
 	public AudioClip SndCollision;
+	public AudioClip SndPlayerDeath;
 
 	private static bool RomanCollision(RomanMovement m1, Pickup p1, RomanMovement m2, Pickup p2) {
 		if( p1.IsBeingThrown == false && p2.IsBeingThrown == true ) {

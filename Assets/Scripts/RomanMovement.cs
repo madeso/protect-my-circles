@@ -14,13 +14,26 @@ public class RomanMovement : MonoBehaviour {
 
 	Rigidbody body_;
 
-	void Start () {	
+	RomanSpawner spawner_;
+
+	AudioSource audio_;
+
+	void Start () {
+		this.spawner_ = GameObject.Find("RomanSpawner").GetComponent<RomanSpawner>();
 		this.pickup_ = this.GetComponent<Pickup>();
 		this.renderer_ = this.GetComponent<Renderer>();
 		this.body_ = this.GetComponent<Rigidbody>();
 		var p = this.transform.position;
 		p.y = Pickup.YPOS;
 		this.body_.MovePosition(p);
+		this.audio_ = GameObject.Find ("Audio").GetComponent<AudioSource>();
+	}
+
+	bool Visible {
+		get {
+			return this.transform.position.sqrMagnitude < this.spawner_.Distance * this.spawner_.Distance;
+			// return this.renderer_.isVisible;
+		}
 	}
 
 	void Update () {
@@ -36,22 +49,25 @@ public class RomanMovement : MonoBehaviour {
 			this.transform.rotation = Quaternion.identity;
 		}
 
-		bool vis = this.renderer_.isVisible;
+		bool vis = this.Visible;
 		if( vis ) has_become_visible_ = true;
 		if( has_become_visible_ && vis == false ) {
 			Destroy(this.gameObject);
+			audio_.PlayOneShot(this.SndDie);
 		}
 	}
 
 	 public void OnTriggerEnter(Collider c) {
-	//public void OnCollisionEnter(Collision c) {
 		if( c.gameObject != null) {
 			var roman = c.gameObject.GetComponent<RomanMovement>();
 			var pickup = c.gameObject.GetComponent<Pickup>();
 
 			if( roman != null ) {
-				RomanCollision(this, this.pickup_, roman, pickup);
+				var collision = RomanCollision(this, this.pickup_, roman, pickup) ||
 				RomanCollision(roman, pickup, this, this.pickup_);
+				if( collision ) {
+					this.audio_.PlayOneShot(this.SndCollision);
+				}
 			}
 		}
 
@@ -63,11 +79,17 @@ public class RomanMovement : MonoBehaviour {
 		}
 	}
 
-	private static void RomanCollision(RomanMovement m1, Pickup p1, RomanMovement m2, Pickup p2) {
+	public AudioClip SndDie;
+	public AudioClip SndCollision;
+
+	private static bool RomanCollision(RomanMovement m1, Pickup p1, RomanMovement m2, Pickup p2) {
 		if( p1.IsBeingThrown == false && p2.IsBeingThrown == true ) {
 			var dir = (p2.ThrowingDirection.normalized + (m1.pos - m2.pos)).normalized * p2.ThrowingDirection.magnitude;
 			p1.Throw(p2.SuggestedThrowingTimer, dir);
 			Debug.Log("Collision");
+			return true;
 		}
+
+		return false;
 	}
 }

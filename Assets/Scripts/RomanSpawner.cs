@@ -14,8 +14,7 @@ public class RomanSpawner : MonoBehaviour {
 	private void Spawn() {
 		var roman = GameObject.Instantiate(Roman);
 		var r = Random.insideUnitCircle.normalized;
-		roman.transform.position = new Vector3(r.x, 0, r.y) * this.Distance;
-		Debug.Log("Spawned roman");
+		roman.transform.position = new Vector3(r.x, Pickup.YPOS, r.y) * this.Distance;
 	}
 
 	void Update () {

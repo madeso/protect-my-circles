@@ -12,9 +12,6 @@ public class TouchManager : MonoBehaviour {
 		foreach(var t in Touches) {
 			if( t.fingerId != finger_id ) continue;
 
-			var suggested_pos = Camera.main.ScreenToWorldPoint(t.position);
-			suggested_pos.y = 0.125f;
-
 			if( t.phase == TouchPhase.Moved || t.phase == TouchPhase.Stationary ) {
 				dir = new Vector3(0,0,0);
 				return SuggestedPosition(t);
@@ -49,7 +46,7 @@ public class TouchManager : MonoBehaviour {
 
 	Vector3 SuggestedPosition(Touch t) {
 		var suggested_pos = Camera.main.ScreenToWorldPoint(t.position);
-		suggested_pos.y = 0.125f;
+		suggested_pos.y = Pickup.YPOS;
 		return suggested_pos;
 	}
 

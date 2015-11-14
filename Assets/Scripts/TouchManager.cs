@@ -5,7 +5,7 @@ public class TouchManager : MonoBehaviour {
 
 	public const int NO_FINGER_ID = -1;
 
-	public float TOUCH_MAG = 1.0f;
+	public float TouchDistance = 1.0f;
 
 
 	public Vector3 GetUpdatedPosition(ref int finger_id, ref bool keep, out Vector3 dir) {
@@ -36,7 +36,7 @@ public class TouchManager : MonoBehaviour {
 		foreach(var t in Touches) {
 			if( t.phase == TouchPhase.Began ) {
 				Vector3 suggested_pos = SuggestedPosition(t);
-				if( (suggested_pos-position.transform.position).sqrMagnitude < TOUCH_MAG * TOUCH_MAG ) {
+				if( (suggested_pos-position.transform.position).sqrMagnitude < TouchDistance * TouchDistance ) {
 					finger_id = t.fingerId;
 					return true;
 				}

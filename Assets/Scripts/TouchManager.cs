@@ -5,6 +5,9 @@ public class TouchManager : MonoBehaviour {
 
 	public const int NO_FINGER_ID = -1;
 
+	public float TOUCH_MAG = 1.0f;
+
+
 	public Vector3 GetUpdatedPosition(ref int finger_id, ref bool keep, out Vector3 dir) {
 		foreach(var t in Touches) {
 			if( t.fingerId != finger_id ) continue;
@@ -15,14 +18,14 @@ public class TouchManager : MonoBehaviour {
 			if( t.phase == TouchPhase.Moved || t.phase == TouchPhase.Stationary ) {
 				dir = new Vector3(0,0,0);
 				Debug.Log ("Moving player");
-				return suggested_pos;
+				return SuggestedPosition(t);
 			}
 			else if( t.phase == TouchPhase.Canceled || t.phase == TouchPhase.Ended ) {
 				keep = false;
 				var d = t.deltaPosition;
 				dir = new Vector3(d.x, 0, d.y);
 				Debug.Log("Dropping player");
-				return suggested_pos;
+				return SuggestedPosition(t);
 			}
 		}
 
@@ -35,27 +38,8 @@ public class TouchManager : MonoBehaviour {
 		foreach(var t in Touches) {
 			if( t.phase == TouchPhase.Began ) {
 				Debug.Log ("Touching somewhere");
-				var ray = Camera.main.ScreenPointToRay(t.position);
-				RaycastHit hit;
-				GameObject o = null;
-				if (Physics.Raycast(ray, out hit, Mathf.Infinity)) {
-					if( hit.collider ) {
-						o = hit.collider.gameObject;
-						Debug.Log(string.Format("Found col {0}", o.name));
-					}
-					else {
-						Debug.Log("no col");
-					}
-
-					if( hit.rigidbody != null ) {
-						o = hit.rigidbody.gameObject;
-						Debug.Log(string.Format("Found rb {0}", o.name));
-					}
-					else {
-						Debug.Log("No rb");
-					}
-				}
-				if( o == position ) {
+				Vector3 suggested_pos = SuggestedPosition(t);
+				if( (suggested_pos-position.transform.position).sqrMagnitude < TOUCH_MAG * TOUCH_MAG ) {
 					Debug.Log("Picked up");
 					finger_id = t.fingerId;
 					return true;
@@ -65,6 +49,12 @@ public class TouchManager : MonoBehaviour {
 
 		finger_id = NO_FINGER_ID;
 		return false;
+	}
+
+	Vector3 SuggestedPosition(Touch t) {
+		var suggested_pos = Camera.main.ScreenToWorldPoint(t.position);
+		suggested_pos.y = 0.125f;
+		return suggested_pos;
 	}
 
 	private static IEnumerable<Touch> Touches {
